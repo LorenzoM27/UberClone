@@ -5,11 +5,31 @@
 //  Created by Lorenzo Menino on 15/08/2024.
 //
 
+//
+
+
 import SwiftUI
 
 struct LocationSearchActivationView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            
+            Rectangle()
+                .fill(Color.black)
+                .frame(width: 8, height: 8)
+                .padding(.horizontal)
+            
+            Text("Où allez vous ?")
+                .foregroundStyle(Color(.darkGray))
+            
+            Spacer()
+        }
+        .frame(width: UIScreen.main.bounds.width - 64, height : 50)
+        .background(
+            Rectangle()
+                .fill(Color.white)
+                .shadow(color: .black, radius: 6)
+        )
     }
 }
 
