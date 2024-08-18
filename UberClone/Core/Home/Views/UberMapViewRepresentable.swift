@@ -14,7 +14,7 @@ import MapKit
 struct UberMapViewRepresentable : UIViewRepresentable {
     
     let mapView = MKMapView()
-    let locationManager = LocationManager() // in our Plist, we have to modify to ask permission
+   // let locationManager = LocationManager.shared // on accède à la variable shared qui fonctionne comme un environment // in our Plist, we have to modify to ask permission
     // @StateObject var locationSearchViewModel = LocationSearchViewModel() // Cette instance de la VM ne connait pas les infos de selectedLocation de l'instance de la vue LocationSearchView car ce sont deux instances différentes, on va alors créer un Environment Object
     @Binding var mapState : MapViewState
     @EnvironmentObject var locationViewModel : LocationSearchViewModel
@@ -104,8 +104,8 @@ extension UberMapViewRepresentable {
             anno.coordinate = coordinate
             parent.mapView.addAnnotation(anno) // On utilise self quand on est dans un bloc, comme completion handler
             parent.mapView.selectAnnotation(anno, animated: true)
-            
-            parent.mapView.showAnnotations(parent.mapView.annotations, animated: true)
+            // On ne veut plus que la map nous centre sur le lieu sélectionné. Voir let rect dans la fonction configurePolyline
+          //  parent.mapView.showAnnotations(parent.mapView.annotations, animated: true)
         }
         
         // this helper function to configure the polyline using the getdestinationFunction
@@ -113,6 +113,12 @@ extension UberMapViewRepresentable {
             guard let userLocationCoordinate = self.userLocationCoordinate else { return }
             getDestinationRoute(from: userLocationCoordinate, to: coordinate) { route in
                 self.parent.mapView.addOverlay(route.polyline)
+                
+                // permet de centrer la map sur le trajet au dessus de a la vue de sélection d'uber
+                let rect = self.parent.mapView.mapRectThatFits(route.polyline.boundingMapRect,
+                                                               edgePadding: .init(top: 64, left: 32, bottom: 500, right: 32))
+                
+                self.parent.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
             }
         }
         

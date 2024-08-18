@@ -24,6 +24,8 @@ class LocationSearchViewModel : NSObject, ObservableObject {
         }
     }
     
+    var userLocation: CLLocationCoordinate2D?
+    
     // MARK: - Life Cycle
     
     // on doit se conformer au NSObject protocol donc on override pour avoir les fonctionnalités de MKLocalsearchCompletion
@@ -59,7 +61,23 @@ class LocationSearchViewModel : NSObject, ObservableObject {
         
         search.start(completionHandler: completion) // on a une completion car la recherche utilise une sorte d'API pour nous donner des resultats, quand ils reviennent, c'est avec un callback ou completion handler
     }
+    
+    func computeRidePrice(forType type: RideType) -> Double {
+        
+        guard let destCoordinate = selectedLocationCoordinate else { return 0.0 }
+        guard let userCoordinate = self.userLocation else { return 0.0 }
+        
+        let userLocation = CLLocation(latitude: userCoordinate.latitude, longitude: userCoordinate.longitude)
+        let destination = CLLocation(latitude: destCoordinate.latitude, longitude: destCoordinate.longitude)
+        
+        // permet de compute la distance entre 2 points
+        let tripDistanceInMeters = userLocation.distance(from: destination)
+        return type.computePrice(for: tripDistanceInMeters)
+        
+    }
 }
+
+
 
 
 // MARK: - MKLocalSearchCompleterDelegate
