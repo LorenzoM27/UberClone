@@ -10,7 +10,8 @@ import SwiftUI
 struct LocationSearchView: View {
     
     @State private var startLocationText = ""
-    @State private var destinationLocationText = ""
+    @Binding var mapState: MapViewState
+    @EnvironmentObject var viewModel : LocationSearchViewModel
     
     var body: some View {
         VStack {
@@ -39,7 +40,8 @@ struct LocationSearchView: View {
                         .background(Color(.systemGroupedBackground))
                         .padding(.trailing)
                     
-                    TextField("Où allez-vous ?", text: $destinationLocationText)
+                    // ON lie se textre field avec le queryFragment
+                    TextField("Où allez-vous ?", text: $viewModel.queryFragment)
                         .frame(height: 32)
                         .background(Color(.systemGray4))
                         .padding(.trailing)
@@ -54,15 +56,20 @@ struct LocationSearchView: View {
             // list view
             ScrollView {
                 VStack(alignment: .leading) {
-                    ForEach(0 ..< 20, id: \.self) { _ in
-                        LocationSearchResultCell()
+                    ForEach(viewModel.results, id: \.self) { result in
+                        LocationSearchResultCell(title: result.title, subtitle: result.subtitle)
+                            .onTapGesture {
+                                viewModel.selectedLocation(result)
+                                mapState = .locationSelected
+                            }
                     }
                 }
             }
         }
+        .background(.white)
     }
 }
 
 #Preview {
-    LocationSearchView()
+    LocationSearchView(mapState: .constant(.searchingForLocation))
 }

@@ -8,23 +8,46 @@
 import SwiftUI
 
 struct MapViewActionButton: View {
+    @Binding var mapState: MapViewState
     var body: some View {
         Button {
-            
+            withAnimation(.spring) {
+                actionForState(mapState)
+            }
         } label: {
-            Image(systemName: "line.3.horizontal")
+            Image(systemName: imageNameForState(mapState))
                 .font(.title2)
                 .foregroundStyle(.black)
                 .padding()
                 .background(.white)
-                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/, radius:6)
+                .clipShape(Circle())
+                .shadow(color: .black, radius:6)
         }
-        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: .leading)
 
+    }
+    
+    func actionForState(_ state: MapViewState) {
+        switch state {
+        case .noInpute:
+            print("DEBUG: No Input")
+        case .searchingForLocation:
+            mapState = .noInpute
+        case .locationSelected:
+            mapState = .noInpute
+        }
+    }
+    
+    func imageNameForState(_ state: MapViewState) -> String {
+        switch state {
+        case .noInpute:
+            return "line.3.horizontal"
+        case .searchingForLocation, .locationSelected:
+            return "arrow.left"
+        }
     }
 }
 
 #Preview {
-    MapViewActionButton()
+    MapViewActionButton(mapState: .constant(.noInpute))
 }
