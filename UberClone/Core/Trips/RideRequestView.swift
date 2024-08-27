@@ -45,19 +45,21 @@ struct RideRequestView: View {
                         
                         Spacer()
                         
-                        Text("13:30")
+                        Text(locationViewModel.pickupTime ?? "")
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundStyle(.gray)
                     }
                     .padding(.bottom, 10)
                     
                     HStack {
-                        Text("Destination")
-                            .font(.system(size: 16, weight: .semibold))
+                        if let location = locationViewModel.selectedUberLocation {
+                            Text(location.title)
+                                .font(.system(size: 16, weight: .semibold))
+                        }
                         
                         Spacer()
                         
-                        Text("13:45")
+                        Text(locationViewModel.dropOffTime ?? "")
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundStyle(.gray)
                     }
@@ -94,8 +96,8 @@ struct RideRequestView: View {
                             .padding()
                         }
                         .frame(width: 112, height: 140)
-                        .foregroundStyle(Color(type == selectedRideType ? .white : .black))
-                        .background(Color(type == selectedRideType ? .systemBlue : .systemGroupedBackground))
+                        .foregroundStyle(Color(type == selectedRideType ? .white : Color.theme.primaryTextColor))
+                        .background(type == selectedRideType ? .blue : Color.theme.secondaryBackgroundColor)
                         .scaleEffect(type == selectedRideType ? 1.2 : 1.0)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .onTapGesture {
@@ -132,7 +134,7 @@ struct RideRequestView: View {
                     .padding()
             }
             .frame(height: 50)
-            .background(Color(.systemGroupedBackground))
+            .background(Color.theme.secondaryBackgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .padding(.horizontal)
             
@@ -151,7 +153,7 @@ struct RideRequestView: View {
             }
         }
         .padding(.bottom, 24)
-        .background(.white)
+        .background(Color.theme.backgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }

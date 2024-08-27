@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import MapKit
+
+struct UberLocation {
+    let title: String
+    let coordinate: CLLocationCoordinate2D
+}
