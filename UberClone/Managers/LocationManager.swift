@@ -23,7 +23,7 @@ class LocationManager: NSObject, ObservableObject {
         // update user location, we have access to it
         locationManager.startUpdatingLocation()
     }
-    
+     
 }
 // c'est ici qu'on a l'user location
 extension LocationManager : CLLocationManagerDelegate {

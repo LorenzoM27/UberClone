@@ -128,6 +128,7 @@
 		6E32DB4A2C5A1D2C00E24F9C /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				6EFEA95E2C8363490027CE7F /* Authentication */,
 				6E905A9B2C71E8B600E75AF8 /* Trips */,
 				6E54145C2C6E068500BE802D /* LocationSearch */,
 				6E473A772C6E063D00BBFB7C /* Home */,
@@ -202,6 +203,29 @@
 				6E905A9C2C71E8DF00E75AF8 /* RideRequestView.swift */,
 			);
 			path = Trips;
+			sourceTree = "<group>";
+		};
+		6EFEA95E2C8363490027CE7F /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				6EFEA9602C83636E0027CE7F /* Views */,
+				6EFEA95F2C8363650027CE7F /* ViewModel */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		6EFEA95F2C8363650027CE7F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6EFEA9602C83636E0027CE7F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

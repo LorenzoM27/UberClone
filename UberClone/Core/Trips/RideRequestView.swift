@@ -149,7 +149,6 @@ struct RideRequestView: View {
                     .background(.blue)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .foregroundStyle(.white)
-                    
             }
         }
         .padding(.bottom, 24)
