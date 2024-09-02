@@ -55,7 +55,7 @@ class LocationSearchViewModel : NSObject, ObservableObject {
             print("DEBUG : Location coordinates \(coordinate)")
         }
     }
-    
+  
     func locationSearch(forLocalSearchCompletion localSearch : MKLocalSearchCompletion, completion: @escaping MKLocalSearch.CompletionHandler) {
         let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = localSearch.title.appending(localSearch.subtitle) // naturalLanguage est l'adresse que nous récupérons de localSearch completion
@@ -109,9 +109,6 @@ class LocationSearchViewModel : NSObject, ObservableObject {
     }
     
 }
-
-
-
 
 // MARK: - MKLocalSearchCompleterDelegate
 

@@ -20,7 +20,5 @@ extension Double {
     
     func toCurrency() -> String {
         return currencyFormatter.string(for: self) ?? ""
-        
     }
-    
 }

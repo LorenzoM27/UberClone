@@ -45,7 +45,6 @@ struct LocationSearchView: View {
                         .frame(height: 32)
                         .background(Color(.systemGray4))
                         .padding(.trailing)
-                    
                 }
             }
             .padding(.horizontal)
@@ -72,6 +71,6 @@ struct LocationSearchView: View {
     }
 }
 
-#Preview {
-    LocationSearchView(mapState: .constant(.searchingForLocation))
-}
+//#Preview {
+//    LocationSearchView(mapState: .constant(.searchingForLocation))
+//}

@@ -89,7 +89,7 @@ extension UberMapViewRepresentable {
             parent.mapView.setRegion(region, animated: true)
         }
         
-        // on utilise cette delegate pethod pour dire à notre mapView de dessiner l'overlay (trait bleu) avec la route sélectionnée, to telle the mapView How to draw the line
+        // on utilise cette delegate method pour dire à notre mapView de dessiner l'overlay (trait bleu) avec la route sélectionnée, to telle the mapView How to draw the line
         func mapView(_ mapView: MKMapView, rendererFor overlay: any MKOverlay) -> MKOverlayRenderer {
             let polyline = MKPolylineRenderer(overlay: overlay)
             polyline.strokeColor = .systemBlue
