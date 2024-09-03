@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseFirestore
 
 
 class AuthViewModel: ObservableObject {
@@ -15,6 +16,7 @@ class AuthViewModel: ObservableObject {
     
     init() {
         userSession = Auth.auth().currentUser // Si on a un user connecté c'est l'a qu'on l'obtient de firebase, si c'est pas le cas nous renvoit nil
+       fetchuser()
     }
     
     func signIn(withEmail email: String, password : String) {
@@ -33,7 +35,15 @@ class AuthViewModel: ObservableObject {
                 print("DEBUG: Failed to sign up with error \(error.localizedDescription)")
                 return
             }
-            self.userSession = result?.user
+            guard let firebaseUser = result?.user else { return }
+            self.userSession = firebaseUser
+            
+            // encode informations and send them to firebase
+            let user = User(fullname: fullname, email: email, uid: firebaseUser.uid)
+            
+            guard let encodedUser = try? Firestore.Encoder().encode(user) else { return }
+            
+            Firestore.firestore().collection("users").document(firebaseUser.uid).setData(encodedUser)
         }
     }
   
@@ -43,6 +53,16 @@ class AuthViewModel: ObservableObject {
             self.userSession = nil
         } catch let error {
             print("DEBUG: Failed to signOut with error : \(error.localizedDescription)")
+        }
+    }
+    
+    func fetchuser() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        //guard let uid = self.userSession?.uid else { return } // l'un ou l'autre, celle ci utilise notre variable
+        Firestore.firestore().collection("users").document(uid).getDocument { snapshot, _ in
+            guard let data = snapshot?.data() else { return }
+            
+            guard let user = try? snapshot?.data(as: User.self) else { return }
         }
     }
 }
