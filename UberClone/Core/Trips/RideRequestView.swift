@@ -39,7 +39,7 @@ struct RideRequestView: View {
                 
                 VStack(alignment: .leading, spacing: 24) {
                     HStack {
-                        Text("Current location")
+                        Text("Ma position")
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundStyle(.gray)
                         

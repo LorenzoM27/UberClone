@@ -8,11 +8,25 @@
 import SwiftUI
 
 struct SideMenuOptionView: View {
+    
+    let viewModel: SideMenuOptionViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack(spacing: 16) {
+            Image(systemName: viewModel.imageName)
+                .font(.title)
+                .imageScale(.medium)
+            
+            Text(viewModel.title)
+                .font(.system(size: 16, weight: .semibold))
+            
+            Spacer()
+            
+        }
+        .foregroundStyle(Color.theme.primaryTextColor)
     }
 }
 
 #Preview {
-    SideMenuOptionView()
+    SideMenuOptionView(viewModel: .trips)
 }

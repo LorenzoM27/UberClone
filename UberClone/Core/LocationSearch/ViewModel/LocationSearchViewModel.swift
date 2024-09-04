@@ -12,7 +12,7 @@ class LocationSearchViewModel : NSObject, ObservableObject {
     
     // MARK: - properties
     
-    @Published var results = [ MKLocalSearchCompletion]() // permet de compléter la recherche
+    @Published var results = [MKLocalSearchCompletion]() // permet de compléter la recherche
     @Published var selectedUberLocation : UberLocation? // Optionnel car quand on initialise le viewModel, rien n'est sélectionné et donc stocké dans la variable
     @Published var pickupTime: String?
     @Published var dropOffTime: String?

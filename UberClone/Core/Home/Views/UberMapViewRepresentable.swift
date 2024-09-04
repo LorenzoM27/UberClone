@@ -113,7 +113,7 @@ extension UberMapViewRepresentable {
         // this helper function to configure the polyline using the getdestinationFunction
         func configurePolyline(withDestinationCoordinate coordinate: CLLocationCoordinate2D) {
             guard let userLocationCoordinate = self.userLocationCoordinate else { return }
-            parent.locationViewModel.getDestinationRoute(from: userLocationCoordinate, 
+            parent.locationViewModel.getDestinationRoute(from: userLocationCoordinate,
                                                          to: coordinate) { route in
                 self.parent.mapView.addOverlay(route.polyline)
                 self.parent.mapState = .polylineAdded

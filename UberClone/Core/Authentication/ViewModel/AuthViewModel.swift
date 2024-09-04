@@ -13,10 +13,11 @@ import FirebaseFirestore
 class AuthViewModel: ObservableObject {
     
     @Published var userSession: FirebaseAuth.User? // On va stocker les infos de l'user actuellement connecté, si pas connecté alors variable vide donc on montre la page de connexion
+    @Published var currentUser: User?
     
     init() {
         userSession = Auth.auth().currentUser // Si on a un user connecté c'est l'a qu'on l'obtient de firebase, si c'est pas le cas nous renvoit nil
-       fetchuser()
+        fetchuser()
     }
     
     func signIn(withEmail email: String, password : String) {
@@ -46,7 +47,7 @@ class AuthViewModel: ObservableObject {
             Firestore.firestore().collection("users").document(firebaseUser.uid).setData(encodedUser)
         }
     }
-  
+    
     func signOut() {
         do {
             try Auth.auth().signOut()
@@ -63,6 +64,8 @@ class AuthViewModel: ObservableObject {
             guard let data = snapshot?.data() else { return }
             
             guard let user = try? snapshot?.data(as: User.self) else { return }
+            
+            self.currentUser = user
         }
     }
 }
